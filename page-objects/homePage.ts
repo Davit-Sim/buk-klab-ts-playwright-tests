@@ -31,9 +31,8 @@ export class HomePage
             this.currentlyReadingReion,
             this.upcomingEvents,
             this.testimonials,
-            ];
-        }
-    
+        ];
+    }    
 
     async verifyAllHomePageLocatorsVisible(): Promise<boolean> {
         const locators = this.getLocators();
@@ -44,7 +43,6 @@ export class HomePage
                     return false;
                 }
             }
-            return true;
-        }    
-
+        return true;
+    }
 }

@@ -2,7 +2,6 @@ import {Locator, Page} from "@playwright/test"
 
 export class NavigationPage
 {
-
     readonly page: Page
     readonly homePageLogoLink: Locator
     readonly navToBooksLink: Locator
@@ -10,7 +9,6 @@ export class NavigationPage
     readonly navToAboutLink: Locator
     readonly navToSignInLink: Locator
     readonly navToJoinBukKlabLink: Locator
-
 
     constructor(page: Page){
         this.page = page
@@ -45,8 +43,6 @@ export class NavigationPage
     async navigateToJoinBukKlabPage(){
         await this.navToJoinBukKlabLink.click();
     }
-
-
     
     getLocators(): Locator[] {
         return [
@@ -57,8 +53,7 @@ export class NavigationPage
             this.navToSignInLink,
             this.navToJoinBukKlabLink,
             ];
-        }
-    
+        }    
 
     async verifyAllNavigationLocatorsVisible(): Promise<boolean> {
         const locators = this.getLocators();
