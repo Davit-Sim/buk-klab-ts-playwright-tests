@@ -8,12 +8,17 @@ Repository: [https://github.com/eliskavo/buk-klab](https://github.com/eliskavo/b
 
 1. Under **Extensions**, search for and install **"Playwright Test for VSCode"** by Microsoft.  
 2. Open a terminal and run the following command:  
+
    ```bash
    npm install
+   
 (Ensure you are in the correct solution folder).
 
 3. After installation, execute the following command:
+
+    ```bash
     npx playwright test
+
 (Ensure that the buk-klab solution is running on http://localhost:5173/).
 
 4. Headed mode:
