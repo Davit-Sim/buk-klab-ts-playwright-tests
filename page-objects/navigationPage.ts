@@ -44,22 +44,22 @@ export class NavigationPage
         await this.navToJoinBukKlabLink.click();
     }
     
-    getLocators(): Locator[] {
+    getLocators(): { locator: Locator; description: string }[] {
         return [
-            this.homePageLogoLink,
-            this.navToBooksLink,
-            this.navToMembersLink,
-            this.navToAboutLink,
-            this.navToSignInLink,
-            this.navToJoinBukKlabLink,
-            ];
-        }    
+            { locator: this.homePageLogoLink, description: 'Home page logo link' },
+            { locator: this.navToBooksLink, description: 'Books navigation link' },
+            { locator: this.navToMembersLink, description: 'Members navigation link' },
+            { locator: this.navToAboutLink, description: 'About navigation link' },
+            { locator: this.navToSignInLink, description: 'Sign in navigation link' },
+            { locator: this.navToJoinBukKlabLink, description: 'Join Buk Klab link' },
+        ];
+    }
 
+    // Verify all navigation locators are visible
     async verifyAllNavigationLocatorsVisible(): Promise<void> {
         const locators = this.getLocators();
-        for (const locator of locators) {
-            await expect(locator).toBeVisible()
-  
+        for (const { locator, description } of locators) {
+            await expect(locator, `Navigation elemnt not visible: ${description}`).toBeVisible();
         }
-    } 
+    }
 }
