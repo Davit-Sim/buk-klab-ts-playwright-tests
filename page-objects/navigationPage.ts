@@ -58,7 +58,7 @@ export class NavigationPage
     async verifyAllNavigationLocatorsVisible(): Promise<void> {
         const locators = this.getLocators();
         for (const locator of locators) {
-            await expect(locator, `Navbar Locator is not visible ${locator}`).toBeVisible()
+            await expect(locator).toBeVisible()
   
         }
     } 

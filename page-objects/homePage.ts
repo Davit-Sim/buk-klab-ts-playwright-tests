@@ -37,7 +37,7 @@ export class HomePage
     async verifyAllHomePageLocatorsVisible(): Promise<void> {
         const locators = this.getLocators();
         for (const locator of locators) {
-            await expect(locator, `Home page locator is not visible: ${locator}`).toBeVisible();
+            await expect(locator).toBeVisible();
         }
     }
 }
