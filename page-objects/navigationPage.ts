@@ -1,4 +1,4 @@
-import {Locator, Page} from "@playwright/test"
+import {expect, Locator, Page} from "@playwright/test"
 
 export class NavigationPage
 {
@@ -13,11 +13,11 @@ export class NavigationPage
     constructor(page: Page){
         this.page = page
         this.homePageLogoLink = page.getByRole('link', { name: 'buk klab', exact: true })
-        this.navToBooksLink = page.getByRole('link', { name: 'books' })
-        this.navToMembersLink = page.getByRole('link', { name: 'members' })
-        this.navToAboutLink = page.getByRole('link', { name: 'about' })
-        this.navToSignInLink = page.getByRole('link', { name: 'sign in' })
-        this.navToJoinBukKlabLink = page.getByRole('list').getByRole('link', { name: 'join buk klab' })
+        this.navToBooksLink = page.getByRole('link', { name: 'books', exact: true })
+        this.navToMembersLink = page.getByRole('link', { name: 'members', exact: true })
+        this.navToAboutLink = page.getByRole('link', { name: 'about', exact: true })
+        this.navToSignInLink = page.getByRole('link', { name: 'sign in', exact: true  })
+        this.navToJoinBukKlabLink = page.getByRole('list').getByRole('link', { name: 'join buk klab', exact: true })
     }
 
     async navigateToHomePage(){
@@ -55,15 +55,11 @@ export class NavigationPage
             ];
         }    
 
-    async verifyAllNavigationLocatorsVisible(): Promise<boolean> {
+    async verifyAllNavigationLocatorsVisible(): Promise<void> {
         const locators = this.getLocators();
         for (const locator of locators) {
-            const isVisible = await locator.isVisible();
-            if (!isVisible) {
-                console.error(`Locator is not visible: ${locator}`);
-                    return false;
-                }
-            }
-            return true;
+            await expect(locator, `Navbar Locator is not visible ${locator}`).toBeVisible()
+  
         }
+    } 
 }
