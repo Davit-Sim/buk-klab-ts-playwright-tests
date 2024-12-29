@@ -22,22 +22,22 @@ export class HomePage
         this.testimonials = page.getByRole('heading', { name: 'testimonials', exact: true })
     }
 
-    getLocators(): Locator[] {
+    getLocators(): { locator: Locator; description: string }[] {
         return [
-            this.welcomeToBukKlabText,
-            this.joinBukKlabLink,
-            this.pismenka,
-            this.howDoesItWorkRegion,
-            this.currentlyReadingReion,
-            this.upcomingEvents,
-            this.testimonials,
+            { locator: this.welcomeToBukKlabText, description: 'Welcome to Buk Klab text' },
+            { locator: this.joinBukKlabLink, description: 'Join Buk Klab link' },
+            { locator: this.pismenka, description: 'Písmenka section' },
+            { locator: this.howDoesItWorkRegion, description: 'How does it work? heading' },
+            { locator: this.currentlyReadingReion, description: 'What are we currently reading? heading' },
+            { locator: this.upcomingEvents, description: 'Upcoming events heading' },
+            { locator: this.testimonials, description: 'Testimonials heading' },
         ];
-    }    
+    }
 
     async verifyAllHomePageLocatorsVisible(): Promise<void> {
         const locators = this.getLocators();
-        for (const locator of locators) {
-            await expect(locator).toBeVisible();
+        for (const { locator, description } of locators) {
+            await expect(locator, `Element not visible: ${description}`).toBeVisible();
         }
     }
 }
