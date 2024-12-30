@@ -55,4 +55,5 @@ export class PageManager {
   onSignInPage() {
     return this.signInPage;
   }
+  
 }
