@@ -27,11 +27,11 @@ If you have any issues with missing browsers, run following "npx playwright inst
 On the left side, locate the "Testing" module, which appears after completing Step 1.
 Click on the module and then click the "Refresh Tests" button.
 
-![alt text](/InstructionImages/textExplorer.png)
-![alt text](/InstructionImages/refreshButton.png)
+![alt text](/instructionImages/textExplorer.png)
+![alt text](/instructionImages/refreshButton.png)
 
 5. You can now run the following tests from the Test Explorer:
 
 Ensure the "Show Browser" option is checked to visualize the test runs.
 
-![alt text](/InstructionImages/ShowBrowser.png)
+![alt text](/instructionImages/ShowBrowser.png)

@@ -1,6 +1,6 @@
 import {test} from '@playwright/test'
-import {NavigationPage} from '../page-objects/navigationPage'
-import { HomePage } from '../page-objects/homePage'
+import {NavigationPage} from '../pageObjects/navigationPage'
+import { HomePage } from '../pageObjects/homePage'
 
 test.beforeEach(async ({page}) => {
     await page.goto("https://buk-klab.vercel.app/")
