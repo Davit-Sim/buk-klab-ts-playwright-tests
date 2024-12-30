@@ -1,23 +1,26 @@
-import { test } from "@playwright/test"
-import { NavigationPage } from "../pageObjects/navigationPage"
-import { MembersPage } from "../pageObjects/membersPage"
+import { test } from "@playwright/test";
+import { PageManager } from "../pageObjects/pageManager";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("https://buk-klab.vercel.app/");
 });
 
-test("Navbar elements visible on the MembersPage", async ({ page }) => {
-  const navigationPage = new NavigationPage(page);
-  await navigationPage.navigateToMembersPage();
-  await navigationPage.verifyAllNavigationLocatorsVisible();
+test.describe("Verification of consistent elements on the MembersPage", () => {
+  test("Navbar elements visible on the MembersPage", async ({ page }) => {
+    const pm = new PageManager(page);
+    await pm.navigateTo().navigateToMembersPage();
+    await pm.navigateTo().verifyAllNavigationLocatorsVisible();
+  });
+
+  //TODO:add test for the footer whenever it will be done by Eliska.. :D
 });
 
-test("Main elements visible on the MembersPage", async ({ page }) => {
-  const navigationPage = new NavigationPage(page);
-  const membersPage = new MembersPage(page);
-
-  await navigationPage.navigateToMembersPage();
-  await navigationPage.verifyAllNavigationLocatorsVisible();
-  await membersPage.verifyMainTitleTextAndIllustrationAreVisible();
-  await membersPage.verifyMembersIllustrationAndImgTextsAreVisible();
+test.describe("Verification of unique elements on the MembersPage", () => {
+  test("Main elements visible on the MembersPage", async ({ page }) => {
+    const pm = new PageManager(page);
+    await pm.navigateTo().navigateToMembersPage();
+    await pm.navigateTo().verifyAllNavigationLocatorsVisible();
+    await pm.onMembersPage().verifyMainTitleTextAndIllustrationAreVisible();
+    await pm.onMembersPage().verifyMembersIllustrationAndImgTextsAreVisible();
+  });
 });

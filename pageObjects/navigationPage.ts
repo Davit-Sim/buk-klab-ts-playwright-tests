@@ -1,7 +1,6 @@
-import {expect, Locator, Page} from "@playwright/test"
+import { expect, Locator, Page } from "@playwright/test"
 
-export class NavigationPage
-{
+export class NavigationPage {
     readonly page: Page
     readonly homePageLogoLink: Locator
     readonly navToBooksLink: Locator
@@ -10,7 +9,7 @@ export class NavigationPage
     readonly navToSignInLink: Locator
     readonly navToJoinBukKlabLink: Locator
 
-    constructor(page: Page){
+    constructor(page: Page) {
         this.page = page
         this.homePageLogoLink = page.getByRole('link', { name: 'buk klab', exact: true })
         this.navToBooksLink = page.getByRole('link', { name: 'books', exact: true })
@@ -20,27 +19,27 @@ export class NavigationPage
         this.navToJoinBukKlabLink = page.getByRole('list').getByRole('link', { name: 'join buk klab', exact: true })
     }
 
-    async navigateToHomePage(){
+    async navigateToHomePage() {
         await this.homePageLogoLink.click()
     }
 
-    async navigateToBooksPage(){
+    async navigateToBooksPage() {
         await this.navToBooksLink.click()
     }
 
-    async navigateToMembersPage(){
+    async navigateToMembersPage() {
         await this.navToMembersLink.click()
     }
 
-    async navigateToAboutPage(){
+    async navigateToAboutPage() {
         await this.navToAboutLink.click()
     }
 
-    async navigateToSignInPage(){
+    async navigateToSignInPage() {
         await this.navToSignInLink.click()
     }
 
-    async navigateToJoinBukKlabPage(){
+    async navigateToJoinBukKlabPage() {
         await this.navToJoinBukKlabLink.click();
     }
     
