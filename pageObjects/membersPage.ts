@@ -1,13 +1,12 @@
-import {expect, Locator, Page} from "@playwright/test"
+import { expect, Locator, Page } from "@playwright/test"
 
-export class MembersPage
-{
+export class MembersPage {
     readonly page: Page
     readonly mainMembersTitle: Locator 
     readonly introductoryText: Locator 
     readonly mainIllustrationGirl: Locator
     
-    constructor(page: Page){
+    constructor(page: Page) {
         this.page = page
         this.mainMembersTitle = page.getByRole('heading', { name: 'our great members' })
         this.introductoryText = page.getByText('Our community is made up of book lovers from all walks of life. We have students, teachers, parents, and professionals who are passionate about reading and sharing their thoughts with others. Join us today and meet new friends who share your love for reading.')
@@ -18,17 +17,17 @@ export class MembersPage
         return this.page.getByRole('img', { name: illustrationName, exact: true });
     }
 
-    async getIllustrationTextBasedOnTheName(illustrationTextName: string): Promise <Locator>{
+    async getIllustrationTextBasedOnTheName(illustrationTextName: string): Promise <Locator> {
         return this.page.getByText(illustrationTextName);
     }
 
-    async verifyMainTitleTextAndIllustrationAreVisible(){        
+    async verifyMainTitleTextAndIllustrationAreVisible() {        
         await expect(this.mainMembersTitle).toBeVisible()
         await expect(this.introductoryText).toBeVisible()
         await expect(this.mainIllustrationGirl).toBeVisible()
     }
 
-    async verifyMembersIllustrationAndImgTextsAreVisible(){
+    async verifyMembersIllustrationAndImgTextsAreVisible() {
         //ToDo: Do a clever foreach here...
         await expect(await this.getIllustrationBasedOnTheName('Anička')).toBeVisible()
         await expect(await this.getIllustrationBasedOnTheName('Damjan')).toBeVisible()

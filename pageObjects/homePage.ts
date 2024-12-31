@@ -1,7 +1,6 @@
-import {expect, Locator, Page} from "@playwright/test"
+import { expect, Locator, Page } from "@playwright/test"
 
-export class HomePage
-{
+export class HomePage {
     readonly page: Page
     readonly welcomeToBukKlabText: Locator
     readonly joinBukKlabLink: Locator
@@ -11,7 +10,7 @@ export class HomePage
     readonly upcomingEvents: Locator
     readonly testimonials: Locator
 
-    constructor(page: Page){
+    constructor(page: Page) {
         this.page = page
         this.welcomeToBukKlabText = page.getByText('Welcome tobuk klabbuk klab is')
         this.joinBukKlabLink = page.locator('section').filter({ hasText: 'Welcome tobuk klabbuk klab is'}).getByRole('link')
