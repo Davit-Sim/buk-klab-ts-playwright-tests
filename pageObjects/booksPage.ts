@@ -17,7 +17,7 @@ export class BooksPage {
     this.bookNotFoundSorryMessage = page.getByText(`Sorry, we couldn't find any books matching your search`);
   }
 
-  async verifyAllMainStaticBooksPageElemntsVisibleOnFirstVisit() {
+  async verifyAllMainStaticBooksPageElementsVisibleOnFirstVisit() {
     await expect(this.booksPageTitle).toBeVisible();
     await expect(this.searchBar).toBeVisible();
     await expect(this.magnifyingGlassIcon).toBeVisible();
@@ -29,7 +29,6 @@ export class BooksPage {
     }
     else {
       await expect(this.bookNotFoundSorryMessage).not.toBeVisible();
-      await expect(this.bookNotFoundSorryMessage).toBeHidden();
     }
   }
 
@@ -39,7 +38,6 @@ export class BooksPage {
     }
     else {
       await expect(this.mainSearchGirlImage).not.toBeVisible();
-      await expect(this.mainSearchGirlImage).toBeHidden();
     }
   }
 }

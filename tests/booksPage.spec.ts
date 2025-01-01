@@ -20,7 +20,7 @@ test.describe("Verification of unique elemnts on the Books", () => {
   test("Main elements visible on the BooksPage", async ({ page }) => {
     const pm = new PageManager(page);
     await pm.navigateTo().navigateToBooksPage();
-    await pm.onBooksPage().verifyAllMainStaticBooksPageElemntsVisibleOnFirstVisit();
+    await pm.onBooksPage().verifyAllMainStaticBooksPageElementsVisibleOnFirstVisit();
     await pm.onBooksPage().isSearchGirlImageVisible(true);
   });
 
