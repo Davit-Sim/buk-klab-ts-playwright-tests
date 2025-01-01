@@ -4,6 +4,7 @@ import { HomePage } from "../pageObjects/homePage";
 import { MembersPage } from "../pageObjects/membersPage";
 import { AboutPage } from "../pageObjects/aboutPage";
 import { BooksPage } from "../pageObjects/booksPage";
+import { BookDetailPage } from "../pageObjects/bookDetailPage";
 import { JoinBukKlabPage } from "../pageObjects/joinBukKlabPage";
 import { SignInPage } from "../pageObjects/signInPage";
 
@@ -14,6 +15,7 @@ export class PageManager {
   private readonly membersPage: MembersPage;
   private readonly aboutPage: AboutPage;
   private readonly booksPage: BooksPage;
+  private readonly bookDetailPage: BookDetailPage;
   private readonly joinBukKlabPage: JoinBukKlabPage;
   private readonly signInPage: SignInPage;
 
@@ -24,6 +26,7 @@ export class PageManager {
     this.membersPage = new MembersPage(this.page);
     this.aboutPage = new AboutPage(this.page);
     this.booksPage = new BooksPage(this.page);
+    this.bookDetailPage = new BookDetailPage(this.page);
     this.joinBukKlabPage = new JoinBukKlabPage(this.page);
     this.signInPage = new SignInPage(this.page);
   }
@@ -55,4 +58,8 @@ export class PageManager {
   onSignInPage() {
     return this.signInPage;
   }  
+  
+  onBookDetailPage() {
+    return this.bookDetailPage;
+  }
 }
