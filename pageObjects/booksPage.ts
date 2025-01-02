@@ -1,4 +1,5 @@
 import { expect, Locator, Page } from "@playwright/test";
+import { TIMEOUT } from "dns";
 
 export class BooksPage {
   readonly page: Page;
@@ -12,11 +13,13 @@ export class BooksPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.booksPageTitle = page.getByText('discover our books');
-    this.searchBar = page.getByPlaceholder('search books by title or author');;
-    this.magnifyingGlassIcon = page.getByTestId('SearchRoundedIcon')
+    this.booksPageTitle = page.getByText("discover our books");
+    this.searchBar = page.getByPlaceholder("search books by title or author");
+    this.magnifyingGlassIcon = page.getByTestId("SearchRoundedIcon");
     this.mainSearchGirlImage = page.locator('img[src*="search"]');
-    this.bookNotFoundSorryMessage = page.getByText(`Sorry, we couldn't find any books matching your search`);
+    this.bookNotFoundSorryMessage = page.getByText(
+      `Sorry, we couldn't find any books matching your search`
+    );
     this.bookGrid = page.locator('div[class*="bookGrid"]');
     this.bookCards = page.locator('a[class*="bookCard"]');
   }
@@ -30,19 +33,17 @@ export class BooksPage {
   async isBookNotFoundMessageDisplayed(isDisplayed: boolean) {
     if (isDisplayed) {
       await expect(this.bookNotFoundSorryMessage).toBeVisible();
-    }
-    else {
+    } else {
       await expect(this.bookNotFoundSorryMessage).not.toBeVisible();
     }
   }
 
   async isSearchGirlImageVisible(isDisplayed: boolean) {
     //TODO - fix/implement better wait instead of this implicit fuj wait
-    await this.page.waitForTimeout(500)
+    await this.page.waitForTimeout(500);
     if (isDisplayed) {
       await expect(this.mainSearchGirlImage).toBeVisible();
-    }
-    else {
+    } else {
       await expect(this.mainSearchGirlImage).not.toBeVisible();
     }
   }
@@ -52,9 +53,12 @@ export class BooksPage {
     await expect(this.searchBar).toHaveValue(keyword);
   }
 
-  async verifyDefaultPlaceholderSearchText() {
-    const searchTextPlaceholder = await this.searchBar.getAttribute('placeholder');
-    await expect(searchTextPlaceholder).toBe('search books by title or author');
+  async verifyDefaultPlaceholderSearchText(expectedText: string = "") {
+    const placeholderText = await this.searchBar.getAttribute("placeholder");
+    await expect(placeholderText).toBe("search books by title or author");
+
+    const currentValue = await this.searchBar.inputValue();
+    await expect(currentValue).toBe(expectedText);
   }
 
   async clearSearch() {
@@ -63,41 +67,59 @@ export class BooksPage {
 
   async verifyNumberOfBookCardsDisplayed(expectedCount: number) {
     await expect(this.bookGrid).toBeVisible();
-    const bookCardCount = await this.bookCards.count()
-    await expect(bookCardCount,
-      `Card count does not match: expected count is: ${expectedCount} and actual count is ${bookCardCount}.`)
-      .toEqual(expectedCount)
+    const bookCardCount = await this.bookCards.count();
+    await expect(
+      bookCardCount,
+      `Card count does not match: expected count is: ${expectedCount} and actual count is ${bookCardCount}.`
+    ).toEqual(expectedCount);
   }
 
   async areBookGridAndBookCardsVisible(isDisplayed: boolean) {
     if (isDisplayed) {
       await expect(this.bookGrid).toBeVisible();
       await expect(this.bookCards.first()).toBeVisible();
-    }
-    else {
+    } else {
       await expect(this.bookGrid).not.toBeVisible();
       await expect(this.bookCards.first()).not.toBeVisible();
     }
   }
 
-  async verifyBookDetails(index: number, expectedTitle: string, expectedAuthor: string, expectedCoverUrl?: string) {
-    const totalBooks = await this.bookCards.count() - 1;
-    if (index >= totalBooks) {
-      throw new Error(`Invalid index: ${index}. Total book cards available: ${totalBooks}`);
+  /**
+   * Verifies book card title, author and cover url based on selected "nth" index
+   * @param index : starts from 1, 1st index = 1st bookCard
+   * @param expectedTitle
+   * @param expectedAuthor
+   * @param expectedCoverUrl : if URL is not provided, verifies that default cover "/assets/placeholder_book" is present
+   */
+  async verifyBookDetails(
+    index: number,
+    expectedTitle: string,
+    expectedAuthor: string,
+    expectedCoverUrl?: string
+  ) {
+    await expect(this.bookGrid).toBeVisible({ timeout: 10000 });
+    const totalBooks = await this.bookCards.count();
+    if (totalBooks == 0) {
+      await expect(this.bookNotFoundSorryMessage).toBeVisible();
+      throw new Error(`No books displayed.`);
+    } else if (index - 1 >= totalBooks) {
+      throw new Error(
+        `Invalid book index: ${index}.
+        \n Total book cards available: ${totalBooks}`
+      );
     }
 
-    const bookCard = this.bookCards.nth(index);
+    const bookCard = this.bookCards.nth(index - 1);
     const bookTitleLocator = bookCard.locator('h3[class*="cardTitle"]');
     const bookAuthorLocator = bookCard.locator('p[class*="cardAuthor"]');
     const bookCoverLocator = bookCard.locator('img[class*="cardCover"]');
     const placeholderCoverBase = "/assets/placeholder_book";
 
-    console.log(bookTitleLocator);
     const actualTitle = await bookTitleLocator.textContent();
-    const normalizedActualTitle = actualTitle?.normalize('NFC');
+    const normalizedActualTitle = actualTitle?.normalize("NFC");
 
     const actualAuthor = await bookAuthorLocator.textContent();
-    const normalizedActualAuthor = actualAuthor?.normalize('NFC');
+    const normalizedActualAuthor = actualAuthor?.normalize("NFC");
 
     await expect(normalizedActualTitle).toBe(expectedTitle);
     await expect(normalizedActualAuthor).toBe(expectedAuthor);
