@@ -1,5 +1,4 @@
 import { expect, Locator, Page } from "@playwright/test";
-import { TIMEOUT } from "dns";
 
 export class BooksPage {
   readonly page: Page;
