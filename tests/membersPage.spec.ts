@@ -11,8 +11,6 @@ test.describe("Verification of consistent elements on the MembersPage", () => {
     await pm.navigateTo().navigateToMembersPage();
     await pm.navigateTo().verifyAllNavigationLocatorsVisible();
   });
-
-  //TODO:add test for the footer whenever it will be done by Eliska.. :D
 });
 
 test.describe("Verification of unique elements on the MembersPage", () => {

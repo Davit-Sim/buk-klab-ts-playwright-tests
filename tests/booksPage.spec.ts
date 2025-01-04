@@ -11,8 +11,6 @@ test.describe("Verification of consistent elements on the BooksPage", () => {
     await pm.navigateTo().navigateToBooksPage();
     await pm.navigateTo().verifyAllNavigationLocatorsVisible();
   });
-
-  //TODO:add test for the footer whenever it will be done by Eliska.. :D
 });
 
 test.describe("Verification of unique elements on the BooksPage", () => {
