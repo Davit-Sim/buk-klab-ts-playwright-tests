@@ -27,5 +27,8 @@ test.describe("Verification of unique elements on the BooksPage", () => {
     const pm = new PageManager(page);
     await pm.navigateTo().navigateToJoinBukKlabPage();
     await pm.onJoinBukKlabPage().navigateToRegisterForm();
+    await pm.onRegisterForm().fillOutNewValidUser();
+    //await pm.onRegisterForm().submitRegisterFormByClickingOnRegisterButton();
+    await pm.onRegisterForm().isSuccessfulResgitrationTextAndSignInSectionVisible(true);
   });
 });
