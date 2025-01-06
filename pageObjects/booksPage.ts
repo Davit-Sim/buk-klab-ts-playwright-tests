@@ -30,21 +30,17 @@ export class BooksPage {
   }
 
   async isBookNotFoundMessageDisplayed(isDisplayed: boolean) {
-    if (isDisplayed) {
-      await expect(this.bookNotFoundSorryMessage).toBeVisible();
-    } else {
-      await expect(this.bookNotFoundSorryMessage).not.toBeVisible();
-    }
+    isDisplayed
+      ? await expect(this.bookNotFoundSorryMessage).toBeVisible()
+      : await expect(this.bookNotFoundSorryMessage).not.toBeVisible();
   }
 
   async isSearchGirlImageVisible(isDisplayed: boolean) {
     //TODO - fix/implement better wait instead of this implicit fuj wait
     await this.page.waitForTimeout(500);
-    if (isDisplayed) {
-      await expect(this.mainSearchGirlImage).toBeVisible();
-    } else {
-      await expect(this.mainSearchGirlImage).not.toBeVisible();
-    }
+    isDisplayed
+      ? await expect(this.mainSearchGirlImage).toBeVisible()
+      : await expect(this.mainSearchGirlImage).not.toBeVisible();
   }
 
   async bookSearch(keyword: string) {
@@ -74,13 +70,12 @@ export class BooksPage {
   }
 
   async areBookGridAndBookCardsVisible(isDisplayed: boolean) {
-    if (isDisplayed) {
-      await expect(this.bookGrid).toBeVisible();
-      await expect(this.bookCards.first()).toBeVisible();
-    } else {
-      await expect(this.bookGrid).not.toBeVisible();
-      await expect(this.bookCards.first()).not.toBeVisible();
-    }
+    isDisplayed
+      ? await expect(this.bookGrid).toBeVisible()
+      : await expect(this.bookGrid).not.toBeVisible();
+    isDisplayed
+      ? expect(this.bookCards.first()).toBeVisible()
+      : await expect(this.bookCards.first()).not.toBeVisible();
   }
 
   /**
@@ -90,6 +85,7 @@ export class BooksPage {
    * @param expectedAuthor
    * @param expectedCoverUrl : if URL is not provided, verifies that default cover "/assets/placeholder_book" is present
    */
+
   async verifyBookDetails(
     index: number,
     expectedTitle: string,
