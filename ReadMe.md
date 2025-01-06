@@ -19,7 +19,8 @@ Repository: [https://github.com/eliskavo/buk-klab](https://github.com/eliskavo/b
     ```bash
     npx playwright test
 
-(Ensure that the buk-klab solution is running on http://localhost:5173/).
+(If you want to run tests locally, change beforEach goTo adress to "http://localhost:5173/" 
+and ensure that the buk-klab solution is running on http://localhost:5173/).
 If you have any issues with missing browsers, run following "npx playwright install --with-deps"
 
 4. Headed mode:
