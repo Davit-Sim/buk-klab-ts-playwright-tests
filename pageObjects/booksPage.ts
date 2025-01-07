@@ -83,52 +83,6 @@ export class BooksPage {
       : await expect(this.bookCards.first()).not.toBeVisible();
   }
 
-  async isSearchGirlImageVisible(isDisplayed: boolean) {
-    //TODO - fix/implement better wait instead of this implicit fuj wait
-    await this.page.waitForTimeout(500);
-    if (isDisplayed) {
-      await expect(this.mainSearchGirlImage).toBeVisible();
-    } else {
-      await expect(this.mainSearchGirlImage).not.toBeVisible();
-    }
-  }
-
-  async bookSearch(keyword: string) {
-    await this.searchBar.fill(keyword);
-    await expect(this.searchBar).toHaveValue(keyword);
-  }
-
-  async verifyDefaultPlaceholderSearchText(expectedText: string = "") {
-    const placeholderText = await this.searchBar.getAttribute("placeholder");
-    await expect(placeholderText).toBe("search books by title or author");
-
-    const currentValue = await this.searchBar.inputValue();
-    await expect(currentValue).toBe(expectedText);
-  }
-
-  async clearSearch() {
-    await this.searchBar.clear();
-  }
-
-  async verifyNumberOfBookCardsDisplayed(expectedCount: number) {
-    await expect(this.bookGrid).toBeVisible();
-    const bookCardCount = await this.bookCards.count();
-    await expect(
-      bookCardCount,
-      `Card count does not match: expected count is: ${expectedCount} and actual count is ${bookCardCount}.`
-    ).toEqual(expectedCount);
-  }
-
-  async areBookGridAndBookCardsVisible(isDisplayed: boolean) {
-    if (isDisplayed) {
-      await expect(this.bookGrid).toBeVisible();
-      await expect(this.bookCards.first()).toBeVisible();
-    } else {
-      await expect(this.bookGrid).not.toBeVisible();
-      await expect(this.bookCards.first()).not.toBeVisible();
-    }
-  }
-
   /**
    * Verifies book card title, author and cover url based on selected "nth" index
    * @param index : starts from 1, 1st index = 1st bookCard

@@ -58,7 +58,9 @@ export class RegisterFormPage {
     );
     this.signInSectionText = page.locator('p[class*="signInSection"]');
     this.allErrorMessages = page.locator('p[class*="errorText"]');
-    this.emailAlreadyExistsMessages = page.getByText("Email already exists", {exact: true})
+    this.emailAlreadyExistsMessages = page.getByText("Email already exists", {
+      exact: true,
+    });
 
     this.inputFields = {
       firstname: this.firstNameInput,
@@ -88,17 +90,13 @@ export class RegisterFormPage {
       : await expect(this.illustration).not.toBeVisible();
   }
 
-  async isSuccessfulResgitrationTextVisible(
-    isDisplayed: boolean
-  ) {
+  async isSuccessfulResgitrationTextVisible(isDisplayed: boolean) {
     isDisplayed
       ? await expect(this.registrationSuccessfulText).toBeVisible()
       : await expect(this.registrationSuccessfulText).not.toBeVisible();
   }
 
-  async isEmailAlreadyExistsMessageVisible(
-    isDisplayed: boolean
-  ) {
+  async isEmailAlreadyExistsMessageVisible(isDisplayed: boolean) {
     isDisplayed
       ? await expect(this.emailAlreadyExistsMessages).toBeVisible()
       : await expect(this.emailAlreadyExistsMessages).not.toBeVisible();
