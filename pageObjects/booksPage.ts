@@ -30,11 +30,6 @@ export class BooksPage {
   }
 
   async isBookNotFoundMessageDisplayed(isDisplayed: boolean) {
-    if (isDisplayed) {
-      await expect(this.bookNotFoundSorryMessage).toBeVisible();
-    } else {
-      await expect(this.bookNotFoundSorryMessage).not.toBeVisible();
-    }
     isDisplayed
       ? await expect(this.bookNotFoundSorryMessage).toBeVisible()
       : await expect(this.bookNotFoundSorryMessage).not.toBeVisible();
