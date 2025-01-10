@@ -85,7 +85,6 @@ export class BooksPage {
    * @param expectedAuthor
    * @param expectedCoverUrl : if URL is not provided, verifies that default cover "/assets/placeholder_book" is present
    */
-
   async verifyBookDetails(
     index: number,
     expectedTitle: string,

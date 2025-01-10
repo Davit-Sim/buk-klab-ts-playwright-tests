@@ -11,8 +11,6 @@ test.describe("Verification of consistent elements on the BooksPage", () => {
     await pm.navigateTo().navigateToBooksPage();
     await pm.navigateTo().verifyAllNavigationLocatorsVisible();
   });
-
-  //TODO:add test for the footer whenever it will be done by Eliska.. :D
 });
 
 test.describe("Verification of unique elements on the BooksPage", () => {
@@ -76,7 +74,7 @@ test.describe("Verification of unique elements on the BooksPage", () => {
     await pm.navigateTo().navigateToBooksPage(); 
     await pm.onBooksPage().bookSearch('H. G. Wells');
     await page.waitForResponse('https://openlibrary.org/search*');
-    await pm.onBooksPage().verifyBookDetails(6, 'The war of the worlds', 'H. G. Wells', 'https://covers.openlibrary.org/b/id/11938007-M.jpg');
+    await pm.onBooksPage().verifyBookDetails(4, 'The war of the worlds', 'H. G. Wells', 'https://covers.openlibrary.org/b/id/11938007-M.jpg');
     await pm.onBooksPage().clearSearch();
     await pm.onBooksPage().bookSearch('Herbert George Wells');
     await pm.onBooksPage().verifyBookDetails(29, 'Invisible Man', 'H. G. Wells');

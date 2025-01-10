@@ -10,8 +10,6 @@ test.describe("Verification of consistent elements on the HomePage", () => {
     const pm = new PageManager(page);
     await pm.navigateTo().verifyAllNavigationLocatorsVisible();
   });
-
-  //TODO:add test for the footer whenever it will be done by Eliska.. :D
 });
 
 test.describe("Verification of unique elemnts on the HomePage", () => {

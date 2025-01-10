@@ -7,6 +7,7 @@ export class NavigationPage {
     readonly navToMembersLink: Locator
     readonly navToAboutLink: Locator
     readonly navToSignInLink: Locator
+    readonly navToSignUpLink: Locator
     readonly navToJoinBukKlabLink: Locator
 
     constructor(page: Page) {
@@ -16,6 +17,7 @@ export class NavigationPage {
         this.navToMembersLink = page.getByRole('link', { name: 'members', exact: true })
         this.navToAboutLink = page.getByRole('link', { name: 'about', exact: true })
         this.navToSignInLink = page.getByRole('link', { name: 'sign in', exact: true  })
+        this.navToSignUpLink = page.getByRole('link', { name: 'sign up', exact: true  })
         this.navToJoinBukKlabLink = page.getByRole('list').getByRole('link', { name: 'join buk klab', exact: true })
     }
 
@@ -39,6 +41,10 @@ export class NavigationPage {
         await this.navToSignInLink.click()
     }
 
+    async navigateToSignUpPage() {
+        await this.navToSignUpLink.click()
+    }
+
     async navigateToJoinBukKlabPage() {
         await this.navToJoinBukKlabLink.click();
     }
@@ -50,6 +56,7 @@ export class NavigationPage {
             { locator: this.navToMembersLink, description: 'Members navigation link' },
             { locator: this.navToAboutLink, description: 'About navigation link' },
             { locator: this.navToSignInLink, description: 'Sign in navigation link' },
+            { locator: this.navToSignUpLink, description: 'Sign up navigation link' },
             { locator: this.navToJoinBukKlabLink, description: 'Join Buk Klab link' },
         ];
     }
