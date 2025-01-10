@@ -1,7 +1,7 @@
 import { expect, Locator, Page } from "@playwright/test";
 import { faker } from "@faker-js/faker";
 
-export class RegisterFormPage {
+export class SignUpPage {
   readonly page: Page;
   readonly registerFormTitle: Locator;
   readonly illustration: Locator;
@@ -17,7 +17,6 @@ export class RegisterFormPage {
   readonly signInSectionText: Locator;
   readonly allErrorMessages: Locator;
   readonly emailAlreadyExistsMessages: Locator;
-
   private readonly inputFields: Record<string, Locator>;
 
   private readonly errorMessageMap: Record<string, string> = {
@@ -29,17 +28,9 @@ export class RegisterFormPage {
     confirmpassword: "Passwords don't match",
   };
 
-  private readonly allErrors: string[] = [
-    "First name cannot be empty or contain numbers",
-    "Last name cannot be empty or contain numbers",
-    "Please enter a valid email",
-    "Password must have at least 8 characters, 1 uppercase letter and 1 number",
-    "Passwords don't match",
-  ];
-
   constructor(page: Page) {
     this.page = page;
-    this.registerFormTitle = page.getByText("register to buk klab");
+    this.registerFormTitle = page.getByText("sign up for your buk klab");
     this.illustration = page.locator('img[src*="group_of_people"]');
     this.firstNameInput = page.getByRole("textbox", { name: "First Name" });
     this.lastNameInput = page.getByRole("textbox", { name: "Last name" });
@@ -177,7 +168,7 @@ export class RegisterFormPage {
     const errorMessages = await this.allErrorMessages.allTextContents();
 
     if (fields.includes("all")) {
-      for (const msg of this.allErrors) {
+      for (const msg of Object.values(this.errorMessageMap)) {
         await expect(errorMessages).toContain(msg);
       }
       return;
@@ -185,9 +176,12 @@ export class RegisterFormPage {
 
     for (const field of fields) {
       const lowerField = field.toLowerCase();
-      if (this.errorMessageMap[lowerField]) {
-        await expect(errorMessages).toContain(this.errorMessageMap[lowerField]);
+
+      if (!this.errorMessageMap[lowerField]) {
+        throw new Error(`No error message mapping found for field: "${field}"`);
       }
+
+      await expect(errorMessages).toContain(this.errorMessageMap[lowerField]);
     }
   }
 
@@ -195,7 +189,7 @@ export class RegisterFormPage {
     const errorMessages = await this.allErrorMessages.allTextContents();
 
     if (fields.includes("all")) {
-      for (const msg of this.allErrors) {
+      for (const msg of Object.values(this.errorMessageMap)) {
         await expect(errorMessages).not.toContain(msg);
       }
       return;
@@ -203,11 +197,14 @@ export class RegisterFormPage {
 
     for (const field of fields) {
       const lowerField = field.toLowerCase();
-      if (this.errorMessageMap[lowerField]) {
-        await expect(errorMessages).not.toContain(
-          this.errorMessageMap[lowerField]
-        );
+
+      if (!this.errorMessageMap[lowerField]) {
+        throw new Error(`No error message mapping found for field: "${field}"`);
       }
+
+      await expect(errorMessages).not.toContain(
+        this.errorMessageMap[lowerField]
+      );
     }
   }
 }
