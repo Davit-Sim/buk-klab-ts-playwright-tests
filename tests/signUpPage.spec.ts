@@ -1,94 +1,82 @@
-import { test } from "../testOptions"
-import { PageManager } from "../pageObjects/pageManager";
-
-test.beforeEach(async ({ page }) => {
-  await page.goto("https://buk-klab.vercel.app/");
-});
+import {test} from '../testOptions';
 
 test.describe("Verification of consistent elements on the RegisterFormPage", () => {
-  test("Navbar elements are visible", async ({ page }) => {
-    const pm = new PageManager(page);
-    await pm.navigateTo().navigateToSignUpPage();
-    await pm.navigateTo().verifyAllNavigationLocatorsVisible();
+  test("Navbar elements are visible", async ({ pageManager }) => {
+    await pageManager.navigateTo().navigateToSignUpPage();
+    await pageManager.navigateTo().verifyAllNavigationLocatorsVisible();
   });
 });
 
 test.describe("Verification of unique elements on the BooksPage", () => {
-  test("Main elements are visible", async ({ page }) => {
-    const pm = new PageManager(page);
-    await pm.navigateTo().navigateToSignUpPage();
-    await pm.onSignUpPage().mainRegisterFormElementsAreVisible();
-    await pm.onSignUpPage().isSuccessfulResgitrationTextVisible(false);
+  test("Main elements are visible", async ({ pageManager }) => {
+    await pageManager.navigateTo().navigateToSignUpPage();
+    await pageManager.onSignUpPage().mainRegisterFormElementsAreVisible();
+    await pageManager.onSignUpPage().isSuccessfulResgitrationTextVisible(false);
   });
 
-  test.skip("Fill register form and create new user", async ({ page }) => {
-    const pm = new PageManager(page);
-    await pm.navigateTo().navigateToSignUpPage();
-    await pm.onSignUpPage().fillRegistrationForm();
-    await pm.onSignUpPage().validateErrorMessagesDoNotExist(["all"]);
-    await pm.onSignUpPage().isEmailAlreadyExistsMessageVisible(false);
-    //await pm.onSignUpPage().submitRegisterFormByClickingOnRegisterButton();
-    await pm.onSignUpPage().isSuccessfulResgitrationTextVisible(true);
-    await pm.onSignUpPage().isEmailAlreadyExistsMessageVisible(false);
+  test.skip("Fill register form and create new user", async ({ pageManager }) => {
+    await pageManager.navigateTo().navigateToSignUpPage();
+    await pageManager.onSignUpPage().fillRegistrationForm();
+    await pageManager.onSignUpPage().validateErrorMessagesDoNotExist(["all"]);
+    await pageManager.onSignUpPage().isEmailAlreadyExistsMessageVisible(false);
+    await pageManager.onSignUpPage().submitRegisterFormByClickingOnRegisterButton();
+    await pageManager.onSignUpPage().isSuccessfulResgitrationTextVisible(true);
+    await pageManager.onSignUpPage().isEmailAlreadyExistsMessageVisible(false);
   });
 
-  test("Submit invalid user", async ({ page }) => {
-    const pm = new PageManager(page);
-    await pm.navigateTo().navigateToSignUpPage();
-    await pm.onSignUpPage().fillRegistrationForm();
-    await pm.onSignUpPage().clearFields(["firstname"]);
-    await pm.onSignUpPage().submitRegisterFormByClickingOnRegisterButton();
-    await pm.onSignUpPage().validateErrorMessagesDoExist(["firstname"]);
-    await pm.onSignUpPage().fillRegistrationForm();
-    await pm.onSignUpPage().clearFields(["lastname"]);
-    await pm.onSignUpPage().submitRegisterFormByClickingOnRegisterButton();
-    await pm.onSignUpPage().validateErrorMessagesDoExist(["lastname"]);
-    await pm.onSignUpPage().fillRegistrationForm();
-    await pm.onSignUpPage().clearFields(["email"]);
-    await pm.onSignUpPage().submitRegisterFormByClickingOnRegisterButton();
-    await pm.onSignUpPage().validateErrorMessagesDoExist(["email"]);
-    await pm.onSignUpPage().fillRegistrationForm();
-    await pm.onSignUpPage().clearFields(["password"]);
-    await pm.onSignUpPage().submitRegisterFormByClickingOnRegisterButton();
-    await pm.onSignUpPage().validateErrorMessagesDoExist(["password"]);
-    await pm.onSignUpPage().fillRegistrationForm();
-    await pm.onSignUpPage().clearFields(["confirmPassword"]);
-    await pm.onSignUpPage().submitRegisterFormByClickingOnRegisterButton();
-    await pm.onSignUpPage().validateErrorMessagesDoExist(["confirmPassword"]); 
+  test("Submit invalid user", async ({ pageManager }) => {
+    await pageManager.navigateTo().navigateToSignUpPage();
+    await pageManager.onSignUpPage().fillRegistrationForm();
+    await pageManager.onSignUpPage().clearFields(["firstname"]);
+    await pageManager.onSignUpPage().submitRegisterFormByClickingOnRegisterButton();
+    await pageManager.onSignUpPage().validateErrorMessagesDoExist(["firstname"]);
+    await pageManager.onSignUpPage().fillRegistrationForm();
+    await pageManager.onSignUpPage().clearFields(["lastname"]);
+    await pageManager.onSignUpPage().submitRegisterFormByClickingOnRegisterButton();
+    await pageManager.onSignUpPage().validateErrorMessagesDoExist(["lastname"]);
+    await pageManager.onSignUpPage().fillRegistrationForm();
+    await pageManager.onSignUpPage().clearFields(["email"]);
+    await pageManager.onSignUpPage().submitRegisterFormByClickingOnRegisterButton();
+    await pageManager.onSignUpPage().validateErrorMessagesDoExist(["email"]);
+    await pageManager.onSignUpPage().fillRegistrationForm();
+    await pageManager.onSignUpPage().clearFields(["password"]);
+    await pageManager.onSignUpPage().submitRegisterFormByClickingOnRegisterButton();
+    await pageManager.onSignUpPage().validateErrorMessagesDoExist(["password"]);
+    await pageManager.onSignUpPage().fillRegistrationForm();
+    await pageManager.onSignUpPage().clearFields(["confirmPassword"]);
+    await pageManager.onSignUpPage().submitRegisterFormByClickingOnRegisterButton();
+    await pageManager.onSignUpPage().validateErrorMessagesDoExist(["confirmPassword"]); 
   });
 
-  test.skip("Submit already existing user", async ({ page }) => {
-    const pm = new PageManager(page);
-    await pm.navigateTo().navigateToSignUpPage();
-    await pm.onSignUpPage().fillRegistrationForm("Random","User","eliska.voova@gmail.com","Password01!","Password01!");
-    //await pm.onSignUpPage().submitRegisterFormByClickingOnRegisterButton();
-    await pm.onSignUpPage().isEmailAlreadyExistsMessageVisible(true);    
+  test.skip("Submit already existing user", async ({ pageManager }) => {
+    await pageManager.navigateTo().navigateToSignUpPage();
+    await pageManager.onSignUpPage().fillRegistrationForm("BukKlabUser", "Existing", process.env.TESTUSEREMAIL, process.env.TESTUSERPASSWORD, process.env.TESTUSERPASSWORD);
+    await pageManager.onSignUpPage().submitRegisterFormByClickingOnRegisterButton();
+    await pageManager.onSignUpPage().isEmailAlreadyExistsMessageVisible(true);    
   });
 
-  test("Error messagges logic verification", async ({ page }) => {
-    const pm = new PageManager(page);
-    await pm.navigateTo().navigateToSignUpPage();
-    await pm.onSignUpPage().fillRegistrationForm();
-    await pm.onSignUpPage().clearFields(["all"]);
-    await pm.onSignUpPage().validateErrorMessagesDoExist(["firstname", "lastname", "email", "password"]);
-    await pm.onSignUpPage().validateErrorMessagesDoNotExist(["confirmPassword"]);
-    await pm.onSignUpPage().fillRegistrationForm("First","Last","TestLast","Password","Password");
-    await pm.onSignUpPage().validateErrorMessagesDoNotExist(["firstname", "lastname", "confirmPassword"]);
-    await pm.onSignUpPage().validateErrorMessagesDoExist(["email", "password"]);
-    await pm.onSignUpPage().clearFields(["email","password", "confirmPassword"]);
-    await pm.onSignUpPage().fillRegistrationForm("","","TestLast@neco.","01","Password");
-    await pm.onSignUpPage().validateErrorMessagesDoExist(["email", "password", "confirmPassword"]);
+  test("Error messagges logic verification", async ({ pageManager }) => {
+    await pageManager.navigateTo().navigateToSignUpPage();
+    await pageManager.onSignUpPage().fillRegistrationForm();
+    await pageManager.onSignUpPage().clearFields(["all"]);
+    await pageManager.onSignUpPage().validateErrorMessagesDoExist(["firstname", "lastname", "email", "password"]);
+    await pageManager.onSignUpPage().validateErrorMessagesDoNotExist(["confirmPassword"]);
+    await pageManager.onSignUpPage().fillRegistrationForm("First","Last","TestLast","Password","Password");
+    await pageManager.onSignUpPage().validateErrorMessagesDoNotExist(["firstname", "lastname", "confirmPassword"]);
+    await pageManager.onSignUpPage().validateErrorMessagesDoExist(["email", "password"]);
+    await pageManager.onSignUpPage().clearFields(["email","password", "confirmPassword"]);
+    await pageManager.onSignUpPage().fillRegistrationForm("","","TestLast@neco.","01","Password");
+    await pageManager.onSignUpPage().validateErrorMessagesDoExist(["email", "password", "confirmPassword"]);
   });
 });
 
 test.describe("Email validation seznam.cz", () => {
-  test("Email confirmation for new user", async ({ page, emailVerificationQaUrl }) => {
-    const pm = new PageManager(page);
+  test("Email confirmation for new user", async ({ page, pageManager, emailVerificationQaUrl }) => {
     await page.goto(emailVerificationQaUrl);
     //TODO - email verification on seznam.cz
     await page.goto('/');
-    await pm.navigateTo().navigateToSignUpPage();
-    await pm.onSignUpPage().fillRegistrationForm("BukKlabUser", "Procházka", process.env.NEWUTESTUSEREMAIL, process.env.NEWTESTUSERPASSWORD, process.env.NEWTESTUSERPASSWORD);
-    await pm.onSignUpPage().submitRegisterFormByClickingOnRegisterButton();
+    await pageManager.navigateTo().navigateToSignUpPage();
+    await pageManager.onSignUpPage().fillRegistrationForm("NewBukKlabUser", "NewUser", process.env.NEWTESTUSEREMAIL, process.env.NEWTESTUSERPASSWORD, process.env.NEWTESTUSERPASSWORD);
+    await pageManager.onSignUpPage().submitRegisterFormByClickingOnRegisterButton();
   });
 });

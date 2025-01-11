@@ -6,14 +6,13 @@ require("dotenv").config();
 export default defineConfig<TestOptions>({
   testDir: "./tests",
   fullyParallel: true,
-  retries: process.env.CI ? 2 : 0,
+  retries: process.env.CI ? 1 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: "html",
 
   use: {
     baseURL: "https://buk-klab.vercel.app/",
     emailVerificationQaUrl: "https://www.seznam.cz/",
-    trace: "on-first-retry",   
   },
 
   projects: [
@@ -23,6 +22,7 @@ export default defineConfig<TestOptions>({
         ...devices["Desktop Chrome"],
         baseURL: "http://localhost:5173/",
         emailVerificationQaUrl: "https://www.seznam.cz/",
+        trace: "on-first-retry", 
       },
     },
     {
@@ -31,6 +31,7 @@ export default defineConfig<TestOptions>({
         ...devices["Desktop Chrome"],
         baseURL: "https://buk-klab.vercel.app/",
         emailVerificationQaUrl: "https://www.seznam.cz/",
+        trace: "on-first-retry", 
         viewport: {width: 1920, height: 1080}
       },
     },
@@ -40,6 +41,7 @@ export default defineConfig<TestOptions>({
         ...devices["Desktop Chrome"],
         baseURL: "https://buk-klab.cz/",
         emailVerificationQaUrl: "https://www.seznam.cz/",
+        trace: "on-first-retry", 
       },
     },
     {
