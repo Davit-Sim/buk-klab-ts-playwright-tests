@@ -1,4 +1,4 @@
-import { test } from "@playwright/test";
+import { test } from "../testOptions"
 import { PageManager } from "../pageObjects/pageManager";
 
 test.beforeEach(async ({ page }) => {
@@ -78,5 +78,17 @@ test.describe("Verification of unique elements on the BooksPage", () => {
     await pm.onSignUpPage().clearFields(["email","password", "confirmPassword"]);
     await pm.onSignUpPage().fillRegistrationForm("","","TestLast@neco.","01","Password");
     await pm.onSignUpPage().validateErrorMessagesDoExist(["email", "password", "confirmPassword"]);
+  });
+});
+
+test.describe("Email validation seznam.cz", () => {
+  test("Email confirmation for new user", async ({ page, emailVerificationQaUrl }) => {
+    const pm = new PageManager(page);
+    await page.goto(emailVerificationQaUrl);
+    //TODO - email verification on seznam.cz
+    await page.goto('/');
+    await pm.navigateTo().navigateToSignUpPage();
+    await pm.onSignUpPage().fillRegistrationForm("BukKlabUser", "Procházka", process.env.NEWUTESTUSEREMAIL, process.env.NEWTESTUSERPASSWORD, process.env.NEWTESTUSERPASSWORD);
+    await pm.onSignUpPage().submitRegisterFormByClickingOnRegisterButton();
   });
 });
