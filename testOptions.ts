@@ -1,5 +1,5 @@
 import { test as base } from '@playwright/test';
-import { PageManager } from '../buk-klab-ts-playwright-tests/pageObjects/pageManager';
+import { PageManager } from './pageObjects/pageManager';
 
 export type TestOptions = {
     emailVerificationQaUrl: string
