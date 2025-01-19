@@ -8,6 +8,7 @@ export class SignInPage {
     readonly signUpTitle: Locator;
     readonly alreadyHaveAccount: Locator;
     readonly signUpLink: Locator;
+    readonly invalidUserErrorText: Locator;
 
     constructor(page: Page) {
         this.page = page
@@ -17,6 +18,7 @@ export class SignInPage {
         this.signInButton = page.getByRole('button', {name: 'sign in'});
         this.alreadyHaveAccount = page.getByText('Don\'t have an account?');
         this.signUpLink = page.locator("p").getByRole("link", {name: "Sign up"});
+        this.invalidUserErrorText = page.locator('p[class*="errorText"]');
     }
 
     async mainElemntsAreVisible() {
@@ -28,9 +30,13 @@ export class SignInPage {
         await expect(this.signUpLink).toBeVisible();
     }
 
-    async loginWithExistingTestUser() {
-        await this.emailInput.fill(process.env.TESTUSEREMAIL);
-        await this.passwordInput.fill(process.env.TESTUSERPASSWORD);
+    async logInWithUser(user?: string, password?: string) {
+        user == undefined ? await this.emailInput.fill(process.env.TESTUSEREMAIL) : await this.emailInput.fill(user)
+        password == undefined ? await this.passwordInput.fill(process.env.TESTUSERPASSWORD) : await this.passwordInput.fill(password);
         await this.signInButton.click();
+    }
+
+    async isErrorMessageDisplayed(isVisible: boolean) {
+        isVisible == true ? await expect(this.invalidUserErrorText).toBeVisible() : await expect(this.invalidUserErrorText).not.toBeVisible();
     }
 }

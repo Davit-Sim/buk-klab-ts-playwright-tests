@@ -3,7 +3,7 @@ import {test} from '../testOptions';
 test.describe("Verification of consistent elements on the BooksPage", () => {
   test("Navbar elements are visible", async ({ pageManager }) => {
     await pageManager.navigateTo().navigateToBooksPage();
-    await pageManager.navigateTo().verifyAllNavigationLocatorsVisible();
+    await pageManager.navigateTo().verifyAllNavigationLocatorsVisibleForAnonymUser();
   });
 });
 

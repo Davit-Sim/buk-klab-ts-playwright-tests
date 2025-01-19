@@ -31,8 +31,12 @@ export default defineConfig<TestOptions>({
         ...devices["Desktop Chrome"],
         baseURL: "https://buk-klab.vercel.app/",
         emailVerificationQaUrl: "https://www.seznam.cz/",
-        trace: "on-first-retry", 
-        viewport: {width: 1920, height: 1080}
+        trace: "on-first-retry",
+        viewport: {width: 1920, height: 1080},
+        launchOptions: {
+          headless: true,
+          args: ['--start-maximized'],
+        },
       },
     },
     {

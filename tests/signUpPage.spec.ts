@@ -3,7 +3,7 @@ import {test} from '../testOptions';
 test.describe("Verification of consistent elements on the RegisterFormPage", () => {
   test("Navbar elements are visible", async ({ pageManager }) => {
     await pageManager.navigateTo().navigateToSignUpPage();
-    await pageManager.navigateTo().verifyAllNavigationLocatorsVisible();
+    await pageManager.navigateTo().verifyAllNavigationLocatorsVisibleForAnonymUser();
   });
 });
 
