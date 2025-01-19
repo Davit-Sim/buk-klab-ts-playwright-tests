@@ -13,13 +13,13 @@ export class HomePage {
 
     constructor(page: Page) {
         this.page = page
-        this.welcomeToBukKlabText = page.getByText('Welcome tobuk klabbuk klab is')
-        this.joinBukKlabLink = page.locator('section').filter({hasText: 'Welcome tobuk klabbuk klab is'}).getByRole('link')
-        this.pismenka = page.locator('div').filter({hasText: /^písmenka$/})
-        this.howDoesItWorkRegion = page.getByRole('heading', {name: 'how does it work?', exact: true})
-        this.currentlyReading = page.getByRole('heading', {name: 'what are we currently reading?', exact: true})
-        this.upcomingEvents = page.getByRole('heading', {name: 'upcoming events', exact: true})
-        this.testimonials = page.getByRole('heading', {name: 'testimonials', exact: true})
+        this.welcomeToBukKlabText = page.getByText('Welcome tobuk klabbuk klab is');
+        this.joinBukKlabLink = page.locator('section').filter({hasText: 'Welcome tobuk klabbuk klab is'}).getByRole('link');
+        this.pismenka = page.locator('div').filter({hasText: /^písmenka$/});
+        this.howDoesItWorkRegion = page.getByRole('heading', {name: 'how does it work?', exact: true});
+        this.currentlyReading = page.getByRole('heading', {name: 'what are we currently reading?', exact: true});
+        this.upcomingEvents = page.getByRole('heading', {name: 'upcoming events', exact: true});
+        this.testimonials = page.getByRole('heading', {name: 'testimonials', exact: true});
         this.bukKlabDefaultTitle = page.locator("h1[class*='title']");
     }
 
