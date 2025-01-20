@@ -3,7 +3,7 @@ import {test} from '../testOptions';
 test.describe("Verification of consistent elements on the BooksPage", () => {
   test("Navbar elements are visible", async ({ pageManager }) => {
     await pageManager.navigateTo().navigateToBooksPage();
-    await pageManager.navigateTo().verifyAllNavigationLocatorsVisible();
+    await pageManager.navigateTo().verifyAllNavigationLocatorsVisibleForAnonymUser();
   });
 });
 
@@ -62,7 +62,7 @@ test.describe("Verification of unique elements on the BooksPage", () => {
     await pageManager.navigateTo().navigateToBooksPage(); 
     await pageManager.onBooksPage().bookSearch('H. G. Wells');
     await page.waitForResponse('https://openlibrary.org/search*');
-    await pageManager.onBooksPage().verifyBookDetails(4, 'The war of the worlds', 'H. G. Wells', 'https://covers.openlibrary.org/b/id/11938007-M.jpg');
+    await pageManager.onBooksPage().verifyBookDetails(3, 'The war of the worlds', 'H. G. Wells', 'https://covers.openlibrary.org/b/id/11938007-M.jpg');
     await pageManager.onBooksPage().clearSearch();
     await pageManager.onBooksPage().bookSearch('Herbert George Wells');
     await pageManager.onBooksPage().verifyBookDetails(29, 'Invisible Man', 'H. G. Wells');
