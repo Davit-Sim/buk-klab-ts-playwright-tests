@@ -15,13 +15,13 @@ export class NavigationPage {
 
     constructor(page: Page) {
         this.page = page
-        this.homePageLogoLink = page.getByRole('link', {name: 'buk klab', exact: true});
-        this.navToBooksLink = page.getByRole('link', {name: 'books', exact: true});
-        this.navToMembersLink = page.getByRole('link', {name: 'members', exact: true});
-        this.navToAboutLink = page.getByRole('link', {name: 'about', exact: true});
-        this.navToSignInLink = page.getByRole('link', {name: 'sign in', exact: true});
-        this.navToSignUpLink = page.getByRole('link', {name: 'sign up', exact: true});
-        this.navToJoinBukKlabLink = page.getByRole('list').getByRole('link', {name: 'join buk klab', exact: true});
+        this.homePageLogoLink = page.getByRole('link', {name: 'buk klab', exact: true}).first();
+        this.navToBooksLink = page.getByRole('link', {name: 'books', exact: true}).first();
+        this.navToMembersLink = page.getByRole('link', {name: 'members', exact: true}).first();
+        this.navToAboutLink = page.getByRole('link', {name: 'about', exact: true}).first();
+        this.navToSignInLink = page.getByRole('link', {name: 'sign in', exact: true}).first();
+        this.navToSignUpLink = page.getByRole('link', {name: 'sign up', exact: true}).first();
+        this.navToJoinBukKlabLink = page.getByRole('list').getByRole('link', {name: 'join buk klab', exact: true}).first();
         this.dropDownButton = page.getByTestId('ExpandMoreRoundedIcon');
         this.signOutButton = page.getByRole('button', {name: 'sign out'});
         this.userButton = page.locator('[class*="userButton"]');
